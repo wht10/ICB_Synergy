@@ -1,13 +1,14 @@
-install.packages("survival")
-install.packages("survminer")
-
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load("tidyverse", "survival","survminer","readr")
 
 library(tidyverse)
 library(survival)
 library(survminer)
+library(readr)
 
-dat <- read.csv("ICB_Synergy_Data.csv")
-
+urlfile <- "https://raw.githubusercontent.com/wht10/ICB_Synergy/master/ICB_Synergy_Data.csv"
+if(!exists("dat"))
+  dat <- read_csv(url(urlfile))
 
 dat <- dat %>% mutate(treatment = as.factor(treatment)) %>%  
   mutate(geno = as.factor(geno))
